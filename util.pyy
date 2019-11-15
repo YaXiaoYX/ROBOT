@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 from gpiozero import DigitalInputDevice, Robot
 from time import sleep
 from proportional import Encoder
-from sensor_msgs.msg import LaserScan
+
 
 class FollowBot(object):
     def __init__(self):
@@ -74,31 +74,12 @@ class FollowBot(object):
     def rotateRight(self, angle):
         enc2 = 0
         SAMPLETIME = 0.125
-        n = 590
+        n = 555
         e1 = self.__leftencoder
         e2 = self.__rightencoder
         while (e2.value < n*angle/90.0):
-            self.__robot.left()
             self.__robot.right()
             print("{} -{}- {}".format(e1.value, e2.value, n*angle/90.0))
             sleep(SAMPLETIME)
 
         self.__robot.stop()
-
-    def Zlocation():
-
-
-          xyzlocation= rospy.Subscriber('/visp_auto_tracker/object_position', xyzposition, callback)
-
-    def callback(data):
-        rospy.loginfo(rospy.get_caller_id() + "I  %s", data.data) 
-    
-
-
-    def scanLidar():
-        rospy.init_node('scanLidar', anonymous=True)
-        rospy.Subscriber("/scan", LaserScan, callback)
-
-        rospy.spin()	
-
-        #self.__robot.stop()
